@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "sqlite3": "^5.0.0",
     "typeorm": "^0.2.26"
   },
   "devDependencies": {
