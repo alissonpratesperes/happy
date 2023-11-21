@@ -34,11 +34,15 @@ import { MigrationInterface, QueryRunner, Table } from "typeorm";
                             type: "text"
                         },
                         {
-                            name: "intructions",
+                            name: "instructions",
                             type: "text"
                         },
                         {
-                            name: "open-on-weekends",
+                            name: "opening_hours",
+                            type: "varchar"
+                        },
+                        {
+                            name: "open_on_weekends",
                             type: "boolean",
                             default: false
                         }
