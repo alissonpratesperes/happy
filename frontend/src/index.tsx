@@ -8,5 +8,7 @@ import App from "./App";
   );
 
     root.render(
-      <App />
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     );
