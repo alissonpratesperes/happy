@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "406caf5e-b483-42d1-afb9-5f7952029426",
+		"name": "happy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29698091"
+	},
+	"item": [
+		{
+			"name": "Orphanages",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/orphanages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"orphanages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/orphanages/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"orphanages",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Lar de São Marcos",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "-28.9669647",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "51.0436304",
+									"type": "text"
+								},
+								{
+									"key": "about",
+									"value": "Sobre o orfanato",
+									"type": "text"
+								},
+								{
+									"key": "instructions",
+									"value": "Venha nos visitar",
+									"type": "text"
+								},
+								{
+									"key": "opening_hours",
+									"value": "Das 8h às 18h",
+									"type": "text"
+								},
+								{
+									"key": "open_on_weekends",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/aprat/Pictures/290-2903859_california-beach-hd.jpg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/aprat/Pictures/254839.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3333/orphanages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"orphanages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
