@@ -27,7 +27,7 @@ import mapMarkerImg from "../assets/images/map-marker.svg";
                                 <Popup closeButton={ false } minWidth={ 240 } maxWidth={ 240 } className="map-popup">
                                     São Marquinhos
                                         <Link to="/orphanages/1">
-                                            <FiArrowRight size={ 20 } color="#FFFFFF"/>  
+                                            <FiArrowRight size={ 24 } color="#FFFFFF"/>  
                                         </Link>
                                 </Popup>
                             </Marker>

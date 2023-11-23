@@ -1,8 +1,8 @@
 import React from "react";
+import "leaflet/dist/leaflet.css";
 
 import "./styles/global.css";
 import Router from "./router";
-import "leaflet/dist/leaflet.css";
 
   function App() {
     return (

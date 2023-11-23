@@ -1,6 +1,6 @@
 import React from "react";
-import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { FiArrowRight } from "react-icons/fi";
 
 import "../styles/pages/landing.css";
 import logoImg from "../assets/images/logo.svg";
