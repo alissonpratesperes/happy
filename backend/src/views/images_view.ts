@@ -8,7 +8,7 @@ import Image from "../models/Image";
             };
         },
 
-        renderMany(images: Image[]) {
-            return images.map(image => this.render(image));
-        }
+            renderMany(images: Image[]) {
+                return images.map(image => this.render(image));
+            }
     };
