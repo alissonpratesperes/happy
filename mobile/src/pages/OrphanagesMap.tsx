@@ -6,11 +6,14 @@ import { RectButton } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions, Alert, ActivityIndicator } from "react-native";
 
-import mapMarker from "../images/map-marker.png";
+import api from "../services/api";
+import mapIcon from "../images/map-marker.png";
+import Orphanage from "../interfaces/Orphanage";
 
     export default function OrphanagesMap() {
         const [ initialPosition, setInitialPosition ] = useState<[number, number]>([0, 0]);
-        const navigation = useNavigation();
+        const [ orphanages, setOrphanages ] = useState<Orphanage[]>([]);
+        const navigation = useNavigation<any>();
 
             useEffect(() => {
                 async function loadPosition() {
@@ -26,12 +29,21 @@ import mapMarker from "../images/map-marker.png";
                 };
                     loadPosition();
             }, []);
+            useEffect(() => {
+                api.get("/orphanages").then(response => {
+                    setOrphanages(response.data);
+                });
+            }, []);
 
-                function handleNavigateToShowOrphanage() {
-                    navigation.navigate("ShowOrphanage" as never);
+                function handleNavigateToShowOrphanage(id: number) {
+                    navigation.navigate(
+                        "ShowOrphanage", {
+                            id
+                        }
+                    );
                 };
                 function handeNavigateToCreateOrphanage() {
-                    navigation.navigate("SelectMapPosition" as never);
+                    navigation.navigate("SelectMapPosition");
                 };
 
                     return (
@@ -44,19 +56,23 @@ import mapMarker from "../images/map-marker.png";
                             ) : (
                                 <>
                                     <MapView style={ styles.map } initialRegion={{ latitude: initialPosition[0], longitude: initialPosition[1], latitudeDelta: 0.014, longitudeDelta: 0.014 }} provider={ PROVIDER_GOOGLE }>
-                                        <Marker icon={ mapMarker } coordinate={{ latitude: initialPosition[0], longitude: initialPosition[1] }} calloutAnchor={{ x: 3.1, y: 0.85 }}>
-                                            <Callout tooltip onPress={ handleNavigateToShowOrphanage }>
-                                                <View style={ styles.calloutContainer }>
-                                                    <Text style={ styles.calloutText }> São Marquinhos </Text>
-                                                        <View style={ styles.calloutBadge }>
-                                                            <Feather name="arrow-right" size={ 24 } color="#FFFFFF"/>
+                                        { orphanages.map(orphanage => {
+                                            return (
+                                                <Marker icon={ mapIcon } coordinate={{ latitude: orphanage.latitude, longitude: orphanage.longitude }} calloutAnchor={{ x: 3.1, y: 0.85 }} key={ orphanage.id }>
+                                                    <Callout tooltip onPress={ () => handleNavigateToShowOrphanage(orphanage.id) }>
+                                                        <View style={ styles.calloutContainer }>
+                                                            <Text style={ styles.calloutText }> { orphanage.name } </Text>
+                                                                <View style={ styles.calloutBadge }>
+                                                                    <Feather name="arrow-right" size={ 24 } color="#FFFFFF"/>
+                                                                </View>
                                                         </View>
-                                                </View>
-                                            </Callout>
-                                        </Marker>
+                                                    </Callout>
+                                                </Marker>
+                                            );
+                                        }) }
                                     </MapView>
                                         <View style={ styles.footerContainer }>
-                                            <Text style={ styles.footerText }> 2 orfanatos encontrados </Text>
+                                            <Text style={ styles.footerText }> { orphanages.length } orfanatos encontrados </Text>
                                                 <RectButton style={ styles.createOrphanageButton } onPress={ handeNavigateToCreateOrphanage }>
                                                     <Feather name="plus" size={ 32 } color="#FFFFFF"/>
                                                 </RectButton>
@@ -88,7 +104,7 @@ import mapMarker from "../images/map-marker.png";
                 width: 190,
                 height: 46,
                 paddingHorizontal: 6,
-                backgroundColor: "rgba(255, 255, 255, 0.8)",
+                backgroundColor: "#FFFFFF",
                 borderRadius: 16,
                 flexDirection: "row",
                 alignItems: "center",
@@ -116,7 +132,7 @@ import mapMarker from "../images/map-marker.png";
                 borderRadius: 20,
                 height: 60,
                 paddingLeft: 20,
-                paddingRight: 5,
+                paddingRight: 7,
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between"
@@ -127,10 +143,10 @@ import mapMarker from "../images/map-marker.png";
                 fontFamily: "Nunito_700Bold"
             },
             createOrphanageButton: {
-                width: 50,
-                height: 50,
+                width: 47,
+                height: 47,
                 backgroundColor: "#15C3D6",
-                borderRadius: 17,
+                borderRadius: 16,
                 alignItems: "center",
                 justifyContent: "center"
             }

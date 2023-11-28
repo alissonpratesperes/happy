@@ -61,7 +61,7 @@
 }
 
 #page-map .map-popup .leaflet-popup-content-wrapper {
-    background: rgba(255, 255, 255, 0.8);
+    background: #FFFFFF;
     border-radius: 20px;
     box-shadow: none;
 }
