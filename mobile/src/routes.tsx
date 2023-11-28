@@ -13,7 +13,7 @@ import SelectMapPosition from "./pages/CreateOrphanage/SelectMapPosition";
         export default function Routes() {
             return (
                 <NavigationContainer>
-                    <Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: "#F2F3F5" } }}>
+                    <Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: "#EBF2F5" } }}>
                         <Screen name="OrphanagesMap" component={ OrphanagesMap }/>
                         <Screen name="ShowOrphanage" component={ ShowOrphanage } options={{ headerShown: true, header: () => <Header title="Orfanato" showCancel={ false }/> }}/>
                         <Screen name="OrphanageData" component={ OrphanageData } options={{ headerShown: true, header: () => <Header title="Informe os dados"/> }}/>

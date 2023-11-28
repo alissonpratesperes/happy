@@ -59,7 +59,7 @@ import Orphanage from "../interfaces/Orphanage";
                                                         <div className="open-details">
                                                             <div className="hour">
                                                                 <FiClock size={ 32 } color="#15B6D6"/>
-                                                                    Segunda à Sexta <br/> { orphanage.opening_hours }
+                                                                    Segunda a Sexta <br/> { orphanage.opening_hours }
                                                             </div>
                                                                 { orphanage.open_on_weekends ? (
                                                                     <div className="open-on-weekends">

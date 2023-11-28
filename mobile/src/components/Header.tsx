@@ -32,7 +32,8 @@ import HeaderProps from "../interfaces/HeaderProps";
 
         const styles = StyleSheet.create({
             container: {
-                padding: 24,
+                paddingHorizontal: 24,
+                paddingVertical: 12,
                 backgroundColor: "#F9FAFC",
                 borderBottomWidth: 1,
                 borderColor: "#DDE3F0",
