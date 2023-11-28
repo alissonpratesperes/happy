@@ -1,51 +1,82 @@
-import React from "react";
 import { Feather } from "@expo/vector-icons";
-import MapView, { Marker } from "react-native-maps";
+import React, { useState, useEffect } from "react";
+import { useRoute } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Linking } from "react-native";
 
+import api from "../services/api";
+import Orphanage from "../interfaces/Orphanage";
 import mapMarkerImg from "../images/map-marker.png";
+import OrphanageParams from "../interfaces/OrphanageParams";
 
     export default function ShowOrphanage() {
-        return (
-            <ScrollView style={ styles.container }>
-                <View style={ styles.containerWrapper }>
-                    <View style={ styles.imagesContainer }>
-                        <ScrollView horizontal pagingEnabled>
-                            <Image style={ styles.image } source={{ uri: "https://fmnova.com.br/images/noticias/safe_image.jpg" }}/>
-                            <Image style={ styles.image } source={{ uri: "https://fmnova.com.br/images/noticias/safe_image.jpg" }}/>
-                            <Image style={ styles.image } source={{ uri: "https://fmnova.com.br/images/noticias/safe_image.jpg" }}/>
-                        </ScrollView>
-                    </View>
-                    <View style={ styles.detailsContainer }>
-                        <Text style={ styles.title }>Orf. Esperança</Text>
-                        <Text style={ styles.description }>Presta assistência a crianças de 06 a 15 anos que se encontre em situação de risco e/ou vulnerabilidade social.</Text>
-                            <View style={styles.mapContainer}>
-                                <MapView style={ styles.mapStyle } initialRegion={{ latitude: -27.2092052, longitude: -49.6401092, latitudeDelta: 0.008, longitudeDelta: 0.008 }} zoomEnabled={ false } pitchEnabled={ false } scrollEnabled={ false } rotateEnabled={ false }>
-                                    <Marker icon={ mapMarkerImg } coordinate={{ latitude: -27.2092052, longitude: -49.6401092 }}/>
-                                </MapView>
-                                    <View style={ styles.routesContainer }>
-                                        <Feather name="navigation" size={ 24 } color="#0089A5"/>
-                                            <Text style={ styles.routesText }>Ver rotas no Google Maps</Text>
+        const route = useRoute();
+        const params = route.params as OrphanageParams;
+        const [ orphanage, setOrphanage ] = useState<Orphanage>();
+
+            useEffect(() => { api.get(`orphanages/${ params.id }`).then(response => { setOrphanage(response.data); }); }, [ params.id ]);
+
+                function handleOpenGoogleMapsRoutes() {
+                    Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${ orphanage?.latitude },${ orphanage?.longitude }`);
+                };
+
+                    if(!orphanage) {
+                        return (
+                            <View style={ styles.container }>
+                                <Text style={ styles.description }> Carregando... </Text>
+                            </View>
+                        );
+                    };
+
+                        return (
+                            <ScrollView style={ styles.container }>
+                                <View style={ styles.containerWrapper }>
+                                    <View style={ styles.imagesContainer }>
+                                        <ScrollView horizontal pagingEnabled>
+                                            { orphanage.images.map(image => {
+                                                return (
+                                                    <Image style={ styles.image } key={ image.id } source={{ uri: image.url }}/>
+                                                );
+                                            }) }
+                                        </ScrollView>
                                     </View>
-                            </View>
-                            <View style={ styles.separator }/>
-                        <Text style={ styles.title }>Instruções para visita</Text>
-                        <Text style={ styles.description }>Venha como se sentir a vontade e traga muito amor e paciência para dar.</Text>
-                            <View style={ styles.scheduleContainer }>
-                                <View style={[ styles.scheduleItem, styles.scheduleItemBlue ]}>
-                                    <Feather name="clock" size={ 32 } color="#2AB5D1"/>
-                                        <Text style={[ styles.scheduleText, styles.scheduleTextBlue ]}>Segunda a Sexta {"\n"}Das 8h às 18h</Text>
+                                    <View style={ styles.detailsContainer }>
+                                        <Text style={ styles.title }>{ orphanage.name }</Text>
+                                        <Text style={ styles.description }>{ orphanage.about }</Text>
+                                            <View style={styles.mapContainer}>
+                                                <MapView style={ styles.mapStyle } initialRegion={{ latitude: orphanage.latitude, longitude: orphanage.longitude, latitudeDelta: 0.008, longitudeDelta: 0.008 }} zoomEnabled={ false } pitchEnabled={ false } scrollEnabled={ false } rotateEnabled={ false } provider={ PROVIDER_GOOGLE }>
+                                                    <Marker icon={ mapMarkerImg } coordinate={{ latitude: orphanage.latitude, longitude: orphanage.longitude }}/>
+                                                </MapView>
+                                                    <TouchableOpacity style={ styles.routesContainer } onPress={ handleOpenGoogleMapsRoutes }>
+                                                        <Feather name="navigation" size={ 24 } color="#0089A5"/>
+                                                            <Text style={ styles.routesText }>Ver rotas no Google Maps</Text>
+                                                    </TouchableOpacity>
+                                            </View>
+                                            <View style={ styles.separator }/>
+                                        <Text style={ styles.title }>Instruções para visita</Text>
+                                        <Text style={ styles.description }>{ orphanage.instructions }</Text>
+                                            <View style={ styles.scheduleContainer }>
+                                                <View style={[ styles.scheduleItem, styles.scheduleItemBlue ]}>
+                                                    <Feather name="clock" size={ 32 } color="#2AB5D1"/>
+                                                        <Text style={[ styles.scheduleText, styles.scheduleTextBlue ]}>Segunda a Sexta {"\n"}{ orphanage.opening_hours }</Text>
+                                                </View>
+                                                    { orphanage.open_on_weekends ? (
+                                                        <View style={[ styles.scheduleItem, styles.scheduleItemGreen ]}>
+                                                            <Feather name="info" size={ 32 } color="#39CC83"/>
+                                                                <Text style={[ styles.scheduleText, styles.scheduleTextGreen ]}>Atendemos {"\n"}fim de semana</Text>
+                                                        </View>
+                                                    ) : (
+                                                        <View style={[ styles.scheduleItem, styles.scheduleItemRed ]}>
+                                                            <Feather name="info" size={ 32 } color="#FF669D"/>
+                                                                <Text style={[ styles.scheduleText, styles.scheduleTextRed ]}>Não atendemos {"\n"}fim de semana</Text>
+                                                        </View>
+                                                    ) }
+                                            </View>
+                                    </View>
                                 </View>
-                                <View style={[ styles.scheduleItem, styles.scheduleItemGreen ]}>
-                                    <Feather name="info" size={ 32 } color="#39CC83"/>
-                                        <Text style={[ styles.scheduleText, styles.scheduleTextGreen ]}>Atendemos {"\n"}fim de semana</Text>
-                                </View>
-                            </View>
-                    </View>
-                </View>
-            </ScrollView>
-        );
+                            </ScrollView>
+                        );
     };
 
         const styles = StyleSheet.create({
@@ -62,12 +93,12 @@ import mapMarkerImg from "../images/map-marker.png";
                 overflow: "hidden"
             },
             imagesContainer: {
-                height: 300,
+                height: 200,
                 flexDirection: "row"
             },
             image: {
                 width: Dimensions.get("window").width - 42,
-                height: 300,
+                height: 200,
                 resizeMode: "cover"
             },
             detailsContainer: {
@@ -94,7 +125,7 @@ import mapMarkerImg from "../images/map-marker.png";
             },
             mapStyle: {
                 width: "100%",
-                height: 180
+                height: 125
             },
             routesContainer: {
                 padding: 16,
@@ -136,6 +167,12 @@ import mapMarkerImg from "../images/map-marker.png";
                 borderColor: "#A1E9C5",
                 borderRadius: 20
             },
+            scheduleItemRed: {
+                backgroundColor: "#FEF6F9",
+                borderWidth: 1,
+                borderColor: "#FFBCD4",
+                borderRadius: 20
+            },
             scheduleText: {
                 fontFamily: "Nunito_600SemiBold",
                 fontSize: 14,
@@ -147,5 +184,8 @@ import mapMarkerImg from "../images/map-marker.png";
             },
             scheduleTextGreen: {
                 color: "#37C77F"
+            },
+            scheduleTextRed: {
+                color: "#FF669D"
             }
         });

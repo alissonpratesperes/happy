@@ -42,7 +42,7 @@ import Orphanage from "../interfaces/Orphanage";
                                                 <h1> { orphanage.name } </h1>
                                                     <p> { orphanage.about } </p>
                                                         <div className="map-container">
-                                                            <Map center={[ orphanage.latitude, orphanage.longitude ]} zoom={ 14 } style={{ width: '100%', height: 280 }} dragging={ false } touchZoom={ false } zoomControl={ false } scrollWheelZoom={ false } doubleClickZoom={ false }>
+                                                            <Map center={[ orphanage.latitude, orphanage.longitude ]} zoom={ 16 } style={{ width: '100%', height: 280 }} dragging={ false } touchZoom={ false } zoomControl={ false } scrollWheelZoom={ false } doubleClickZoom={ false }>
                                                                 <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                                                     <Marker interactive={ false } icon={ mapIcon } position={[ orphanage.latitude, orphanage.longitude ]} />
                                                             </Map>
