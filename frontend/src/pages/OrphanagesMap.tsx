@@ -10,8 +10,10 @@ import Orphanage from "../interfaces/Orphanage";
 import mapMarkerImg from "../assets/images/map-marker.svg";
 
     function OrphanagesMap() {
+        const [ initialPosition, setInitialPosition ] = useState<[number, number]>([0, 0]);
         const [ orphanages, setOrphanages ] = useState<Orphanage[]>([]);
 
+            useEffect(() => { navigator.geolocation.getCurrentPosition(position => { const { latitude, longitude } = position.coords; setInitialPosition([ latitude, longitude ]); }); }, []);
             useEffect(() => { api.get("/orphanages").then(response => { setOrphanages(response.data); }); }, []);
 
                 return (
@@ -27,7 +29,7 @@ import mapMarkerImg from "../assets/images/map-marker.svg";
                                         <span> Rio Grande do Sul </span>
                                 </footer>
                         </aside>
-                            <Map center={[ -28.9669647, -51.0436304 ]} zoom={ 15 } style={{ width: '100%', height: '100%' }}>
+                            <Map center={ initialPosition } zoom={ 15 } style={{ width: '100%', height: '100%' }}>
                                 <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                     { orphanages.map(orphanage => {
                                         return (

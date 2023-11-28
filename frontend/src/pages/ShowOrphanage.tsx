@@ -73,10 +73,6 @@ import Orphanage from "../interfaces/Orphanage";
                                                                     </div>
                                                                 ) }
                                                         </div>
-                                                            {/* <button type="button" className="contact-button">
-                                                                <FaWhatsapp size={ 24 } color="#FFFFFF"/>
-                                                                    Entrar em contato
-                                                            </button> */}
                                             </div>
                                     </div>
                                 </main>
