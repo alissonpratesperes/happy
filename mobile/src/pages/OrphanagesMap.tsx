@@ -2,8 +2,9 @@ import * as Location from "expo-location";
 import { Feather } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { RectButton } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions, Alert, ActivityIndicator, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Alert, ActivityIndicator } from "react-native";
 
 import mapMarker from "../images/map-marker.png";
 
@@ -29,6 +30,9 @@ import mapMarker from "../images/map-marker.png";
                 function handleNavigateToShowOrphanage() {
                     navigation.navigate("ShowOrphanage" as never);
                 };
+                function handeNavigateToCreateOrphanage() {
+                    navigation.navigate("SelectMapPosition" as never);
+                };
 
                     return (
                         <View style={ styles.container }>
@@ -41,7 +45,7 @@ import mapMarker from "../images/map-marker.png";
                                 <>
                                     <MapView style={ styles.map } initialRegion={{ latitude: initialPosition[0], longitude: initialPosition[1], latitudeDelta: 0.014, longitudeDelta: 0.014 }} provider={ PROVIDER_GOOGLE }>
                                         <Marker icon={ mapMarker } coordinate={{ latitude: initialPosition[0], longitude: initialPosition[1] }} calloutAnchor={{ x: 3.1, y: 0.85 }}>
-                                            <Callout tooltip onPress={ () => { handleNavigateToShowOrphanage() } }>
+                                            <Callout tooltip onPress={ handleNavigateToShowOrphanage }>
                                                 <View style={ styles.calloutContainer }>
                                                     <Text style={ styles.calloutText }> São Marquinhos </Text>
                                                         <View style={ styles.calloutBadge }>
@@ -53,9 +57,9 @@ import mapMarker from "../images/map-marker.png";
                                     </MapView>
                                         <View style={ styles.footerContainer }>
                                             <Text style={ styles.footerText }> 2 orfanatos encontrados </Text>
-                                                <TouchableOpacity style={ styles.createOrphanageButton } onPress={ () => {} }>
+                                                <RectButton style={ styles.createOrphanageButton } onPress={ handeNavigateToCreateOrphanage }>
                                                     <Feather name="plus" size={ 32 } color="#FFFFFF"/>
-                                                </TouchableOpacity>
+                                                </RectButton>
                                         </View>
                                 </>
                             ) }
