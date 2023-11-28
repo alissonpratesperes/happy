@@ -22,16 +22,16 @@ import orphanagesView from "../views/orphanages_view";
             const orphanagesRepository = getRepository(Orphanage);
             const requestImages = request.files as Express.Multer.File[];
             const images = requestImages.map(image => { return { path: image.filename }; });
-            const data = { name, latitude, longitude, about, instructions, opening_hours, open_on_weekends, images };
+            const data = { latitude, longitude, name, about, images, instructions, opening_hours, open_on_weekends: open_on_weekends === 'true' };
             const schema = Yup.object().shape({
-                name: Yup.string().required(),
                 latitude: Yup.number().required(),
                 longitude: Yup.number().required(),
+                name: Yup.string().required(),
                 about: Yup.string().required().max(300),
+                images: Yup.array( Yup.object().shape({ path: Yup.string().required() }) ).required(),
                 instructions: Yup.string().required(),
                 opening_hours: Yup.string().required(),
                 open_on_weekends: Yup.boolean().required(),
-                images: Yup.array( Yup.object().shape({ path: Yup.string().required() }) ).required()
             });
                 await schema.validate(data, { abortEarly: false });
             const orphanage = orphanagesRepository.create(data);
