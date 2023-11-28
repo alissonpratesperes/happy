@@ -1,12 +1,15 @@
+import { useFonts } from "expo-font";
 import * as Location from "expo-location";
 import { Feather } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import { Nunito_600SemiBold, Nunito_700Bold, Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
 import { StyleSheet, Text, View, Dimensions, Alert, ActivityIndicator, StatusBar, TouchableOpacity } from "react-native";
 
 import mapMarker from "./src/images/map-marker.png";
 
     export default function App() {
+        const [ fontsLoaded ] = useFonts({ Nunito_600SemiBold, Nunito_700Bold, Nunito_800ExtraBold });
         const [ initialPosition, setInitialPosition ] = useState<[number, number]>([0, 0]);
 
             useEffect(() => {
@@ -24,35 +27,39 @@ import mapMarker from "./src/images/map-marker.png";
                     loadPosition();
             }, []);
 
-                return (
-                    <View style={ styles.container }>
-                        { initialPosition[0] === 0 && initialPosition[1] === 0 ? (
-                            <View style={ styles.loadingMapContainer }>
-                                <ActivityIndicator size="large" color="#000000"/>
-                                    <Text style={ styles.loadingMapText }> Carregando... </Text>
-                            </View>
-                        ) : (
-                            <>
-                                <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent/>
-                                    <MapView style={ styles.map } initialRegion={{ latitude: initialPosition[0], longitude: initialPosition[1], latitudeDelta: 0.014, longitudeDelta: 0.014 }} provider={ PROVIDER_GOOGLE }>
-                                        <Marker icon={ mapMarker } coordinate={{ latitude: initialPosition[0], longitude: initialPosition[1] }} calloutAnchor={{ x: 2.8, y: 0.85 }}>
-                                            <Callout tooltip onPress={ () => {} }>
-                                                <View style={ styles.calloutContainer }>
-                                                    <Text style={ styles.calloutText }> São Marquinhos </Text>
-                                                </View>
-                                            </Callout>
-                                        </Marker>
-                                    </MapView>
-                                        <View style={ styles.footerContainer }>
-                                            <Text style={ styles.footerText }> 2 orfanatos encontrados </Text>
-                                                <TouchableOpacity style={ styles.createOrphanageButton } onPress={ () => {} }>
-                                                    <Feather name="plus" size={ 32 } color="#FFFFFF"/>
-                                                </TouchableOpacity>
-                                        </View>
-                            </>
-                        ) } 
-                    </View>
-                );
+                if(!fontsLoaded) {
+                    return null;
+                }
+
+                    return (
+                        <View style={ styles.container }>
+                            { initialPosition[0] === 0 && initialPosition[1] === 0 ? (
+                                <View style={ styles.loadingMapContainer }>
+                                    <ActivityIndicator size="large" color="#000000"/>
+                                        <Text style={ styles.loadingMapText }> Carregando... </Text>
+                                </View>
+                            ) : (
+                                <>
+                                    <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent/>
+                                        <MapView style={ styles.map } initialRegion={{ latitude: initialPosition[0], longitude: initialPosition[1], latitudeDelta: 0.014, longitudeDelta: 0.014 }} provider={ PROVIDER_GOOGLE }>
+                                            <Marker icon={ mapMarker } coordinate={{ latitude: initialPosition[0], longitude: initialPosition[1] }} calloutAnchor={{ x: 2.8, y: 0.85 }}>
+                                                <Callout tooltip onPress={ () => {} }>
+                                                    <View style={ styles.calloutContainer }>
+                                                        <Text style={ styles.calloutText }> São Marquinhos </Text>
+                                                    </View>
+                                                </Callout>
+                                            </Marker>
+                                        </MapView>
+                                            <View style={ styles.footerContainer }>
+                                                <Text style={ styles.footerText }> 2 orfanatos encontrados </Text>
+                                                    <TouchableOpacity style={ styles.createOrphanageButton } onPress={ () => {} }>
+                                                        <Feather name="plus" size={ 32 } color="#FFFFFF"/>
+                                                    </TouchableOpacity>
+                                            </View>
+                                </>
+                            ) } 
+                        </View>
+                    );
     };
 
         const styles = StyleSheet.create({
@@ -82,7 +89,8 @@ import mapMarker from "./src/images/map-marker.png";
             },
             calloutText: {
                 color: "#0089A5",
-                fontSize: 15
+                fontSize: 15,
+                fontFamily: "Nunito_700Bold"
             },
             footerContainer: {
                 position: "absolute",
@@ -100,7 +108,8 @@ import mapMarker from "./src/images/map-marker.png";
             },
             footerText: {
                 color: "#8FA7B3",
-                fontSize: 15
+                fontSize: 15,
+                fontFamily: "Nunito_700Bold"
             },
             createOrphanageButton: {
                 width: 50,
