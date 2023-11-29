@@ -42,3 +42,9 @@ Essa Aplicação foi desenvolvida utilizando as seguintes tecnologias:
 - <a href="https://reactnative.dev/">React Native</a>
 - <a href="https://reactnavigation.org/">React Navigation</a>
 - <a href="https://expo.dev/">Expo IO</a>
+
+## :fuelpump: Autor
+
+Projeto desenvolvido durante a **Next Level Week 03** da <a href="https://rocketseat.com.br/">Rocketseat</a>, ocorrida em **Outubro de 2020**;
+
+Acesse <a href="https://github.com/rocketseat-education/nlw-03-omnistack">aqui</a> o **repositório oficial** da aplicação.
