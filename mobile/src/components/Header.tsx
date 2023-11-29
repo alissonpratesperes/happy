@@ -7,10 +7,12 @@ import { BorderlessButton } from "react-native-gesture-handler";
 import HeaderProps from "../interfaces/HeaderProps";
 
     export default function Header({ title, showCancel = true }: HeaderProps) {
-        const navigation = useNavigation();
+        const navigation = useNavigation<any>();
 
             function handleGoBackToAppInitialScreen() {
-                navigation.navigate("OrphanagesMap" as never);
+                navigation.navigate (
+                    "OrphanagesMap"
+                );
             };
 
                 return (
@@ -18,7 +20,7 @@ import HeaderProps from "../interfaces/HeaderProps";
                         <BorderlessButton onPress={ navigation.goBack }>
                             <Feather name="arrow-left" size={ 24 } color="#15B6D6"/>
                         </BorderlessButton>
-                            <Text style={ styles.title }> { title } </Text>
+                            <Text style={ styles.title }>{ title }</Text>
                                 { showCancel ? (
                                     <BorderlessButton onPress={ handleGoBackToAppInitialScreen }>
                                         <Feather name="x" size={ 24 } color="#FF669D"/>

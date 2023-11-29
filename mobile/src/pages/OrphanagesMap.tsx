@@ -74,7 +74,7 @@ import Orphanage from "../interfaces/Orphanage";
                                         <View style={ styles.footerContainer }>
                                             <Text style={ styles.footerText }> { orphanages.length } orfanatos encontrados </Text>
                                                 <RectButton style={ styles.createOrphanageButton } onPress={ handeNavigateToCreateOrphanage }>
-                                                    <Feather name="plus" size={ 32 } color="#FFFFFF"/>
+                                                    <Feather name="plus" size={ 24 } color="#FFFFFF"/>
                                                 </RectButton>
                                         </View>
                                 </>
