@@ -21,6 +21,9 @@ ___
     <a href="#memo-licença">Licença</a>
 </p>
     </br>
+<p align="center">
+    <img src="github/happy_dashboard.png" width="100%"/>
+</p>
 
 ## :dart: Sobre
 
