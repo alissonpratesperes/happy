@@ -1,6 +1,6 @@
 import { LeafletMouseEvent } from "leaflet";
 import { useNavigate } from "react-router-dom";
-import { FiPlus, FiCheck } from "react-icons/fi";
+import { FiPlus, FiSave } from "react-icons/fi";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import { BiSolidLike, BiSolidDislike } from "react-icons/bi";
 import React, { FormEvent, useState, ChangeEvent, useEffect } from "react";
@@ -106,7 +106,7 @@ import "../styles/pages/create-orphanage.css";
                                                         <input id="opening_hours" value={ opening_hours } onChange={ event => setOpeningHours(event.target.value) }/>
                                                 </div>
                                                 <div className="input-block">
-                                                    <label htmlFor="open_on_weekends"> Atende fim de semana </label>
+                                                    <label htmlFor="open_on_weekends"> Atende final de semana? </label>
                                                         <div className="button-select">
                                                             <button type="button" className={ open_on_weekends ? 'open-on-weekends' : '' } onClick={ () => setOpenOnWeekends(true) }>
                                                                 <BiSolidLike size={ 24 }/>
@@ -120,8 +120,8 @@ import "../styles/pages/create-orphanage.css";
                                                 </div>
                                         </fieldset>
                                             <button className="confirm-button" type="submit">
-                                                <FiCheck size={ 24 } color="#FFFFFF"/>
-                                                    Confirmar
+                                                <FiSave size={ 24 } color="#FFFFFF"/>
+                                                    Cadastrar
                                             </button>
                                     </form>
                                 </main>
