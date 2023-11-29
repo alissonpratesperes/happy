@@ -1,7 +1,7 @@
 import * as Location from "expo-location";
 import { Feather } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions, Alert, ActivityIndicator } from "react-native";
@@ -29,11 +29,11 @@ import Orphanage from "../interfaces/Orphanage";
                 };
                     loadPosition();
             }, []);
-            useEffect(() => {
+            useFocusEffect(() => {
                 api.get("/orphanages").then(response => {
                     setOrphanages(response.data);
                 });
-            }, []);
+            });
 
                 function handleNavigateToShowOrphanage(id: number) {
                     navigation.navigate(
