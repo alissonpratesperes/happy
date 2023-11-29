@@ -43,6 +43,20 @@ Essa Aplicação foi desenvolvida utilizando as seguintes tecnologias:
 - <a href="https://reactnavigation.org/">React Navigation</a>
 - <a href="https://expo.dev/">Expo IO</a>
 
+## :electric_plug: Execute
+
+    - Clonar o Repositório.
+    - Instalar as dependências do Back-End com o comando: ">_ npm install --force":
+        |- Implementar as migrações no DB com o comando: ">_ npm run typeorm migration:run";
+        |- Na View: "./backend/src/views/images_view.ts:7", atualizar o Endereço de IP da máquina;
+            > Inicializar o Back-End com o comando: ">_ npm run dev".
+    - Instalar as dependências do Front-End com o comando: ">_ npm install --force":
+        |- No Service: "./frontend/src/services/api.ts:4", atualizar o Endereço de IP da máquina;
+            > Inicializar o Front-End com o comando: ">_ npm start".
+    - Instalar as dependências do Mobile com o comando: ">_ npm install --force":
+        |- No Service: "./mobile/src/services/api.ts:4", atualizar o Endereço de IP da máquina;
+            > Inicializar o Mobile com o comando: ">_ npm start".
+
 ## :fuelpump: Autor
 
 Projeto desenvolvido durante a **Next Level Week 03** da <a href="https://rocketseat.com.br/">Rocketseat</a>, ocorrida em **Outubro de 2020**;
