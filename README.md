@@ -25,3 +25,20 @@ ___
 ## :dart: Sobre
 
 A **Happy** é uma aplicação que conecta pessoas à Casas de Acolhimento Institucional para fazer o dia de muitas crianças mais feliz.
+
+## :battery: Tecnologias
+Essa Aplicação foi desenvolvida utilizando as seguintes tecnologias:
+
+- <a href="https://web.postman.co/">Postman</a>
+- <a href="https://typeorm.io/">TypeORM</a>
+- <a href="https://sqlite.org/">SQLite 3</a>
+- <a href="https://www.typescriptlang.org/">TypeScript</a>
+- <a href="https://nodejs.org/">NodeJS</a>
+- <a href="https://expressjs.com/">Express</a>
+- <a href="https://reactjs.org/">ReactJS</a>
+- <a href="https://react-leaflet.js.org/">React Leaflet</a>
+- <a href="https://reactrouter.com/en/main/">React Router DOM</a>
+- <a href="https://axios-http.com/">Axios</a>
+- <a href="https://reactnative.dev/">React Native</a>
+- <a href="https://reactnavigation.org/">React Navigation</a>
+- <a href="https://expo.dev/">Expo IO</a>
