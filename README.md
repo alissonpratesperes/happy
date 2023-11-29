@@ -20,3 +20,8 @@ ___
     <a href="#fuelpump-autor">Autor</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#memo-licença">Licença</a>
 </p>
+    </br>
+
+## :dart: Sobre
+
+A **Happy** é uma aplicação que conecta pessoas à Casas de Acolhimento Institucional para fazer o dia de muitas crianças mais feliz.
